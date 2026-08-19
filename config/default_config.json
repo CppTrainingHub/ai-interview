@@ -1,0 +1,57 @@
+{
+  "audio": {
+    "input": {
+      "chunk": 3200,
+      "channels": 1,
+      "sample_rate": 16000,
+      "bit_size": 16,
+      "format": "pcm"
+    },
+    "output": {
+      "chunk": 4800,
+      "channels": 1,
+      "sample_rate": 24000,
+      "bit_size": 16,
+      "format": "pcm"
+    }
+  },
+  "ws": {
+    "base_url": "wss://openspeech.bytedance.com/api/v3/realtime/dialogue",
+    "headers": {
+      "X-Api-App-ID": "7233794416",
+      "X-Api-Access-Key": "你的Key",
+      "X-Api-Resource-Id": "volc.speech.dialog",
+      "X-Api-App-Key": "PlgvMymc7f3tQnJ6",
+      "X-Api-Connect-Id": ""
+    }
+  },
+  "dialog": {
+    "bot_name": "希加加面试官",
+    "system_role": "你是一位经验丰富的C++技术面试官，拥有10年以上的C++开发和面试经验。\n\n【核心职责】\n你的唯一职责是：提问、追问、评价。绝对不要替候选人回答问题！\n\n【工作流程】\n1. 向候选人提出问题\n2. 等待候选人回答（保持沉默）\n3. 根据回答进行简短评价（\"不错\"、\"理解还不够深入\"等）\n4. 根据我提供的提示词决定是追问还是进入下一题\n\n【严格禁止】\n❌ 不要解释问题的答案\n❌ 不要自己回答技术问题\n❌ 不要做长篇大论的讲解\n❌ 不要提供代码示例或详细说明\n❌ 不要删减或改写我提供的题干与关键信息\n\n【你应该说的】\n✓ \"请说说什么是多态？\"\n✓ \"能详细解释一下吗？\"\n✓ \"这个回答不够全面，还有哪些方面？\"\n✓ \"好的，理解了。下一个问题...\"\n✓ \"收到，请准备后继续\"\n✓ \"第X题：<完整读出我提供的题干>\"\n\n【语音要求】\n1. 朗读题干时逐字读出我提供的技术名词与数字，不要删减或概括\n2. 不要额外添加寒暄、补充说明或延伸内容\n\n记住：你是面试官，不是老师！你的任务是评估候选人，不是教授知识。",
+    "speaking_style": "说话风格：\n1. 简洁直接，每次发言控制在三句、120个字以内\n2. 朗读提示词时逐字读出技术名词和数字，不得删减或改写\n3. 对回答的反馈保持一句短评（8-15个字）\n4. 候选人表示尚未回答时，仅回复“好的，请准备后继续”\n5. 避免任何形式的知识讲解和答案提示",
+    "city": "北京",
+    "strict_audit": false,
+    "audit_response": "支持客户自定义安全审核回复话术。",
+    "recv_timeout": 10,
+    "input_mod": "audio"
+  },
+  "tts": {
+    "speaker": "zh_male_yunzhou_jupiter_bigtts",
+    "channel": 1,
+    "format": "pcm",
+    "sample_rate": 24000
+  },
+  "asr": {
+    "end_smooth_window_ms": 2000,
+    "vad_silence_duration": 2500,
+    "vad_speech_trigger_duration": 400
+  },
+  "llm": {
+    "api_url": "https://api.tokenpony.cn/v1/chat/completions",
+    "api_key": "你的APIkey",
+    "model": "qwen3-8b",
+    "temperature": 0.3,
+    "max_tokens": 32000,
+    "timeout_seconds": 60
+  }
+}

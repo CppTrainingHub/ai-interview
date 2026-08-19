@@ -1,0 +1,23 @@
+# Build artifacts
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+compile_commands.json
+
+# Local configuration and secrets
+config/local_config.json
+*.local.json
+.env
+.env.*
+
+# IDE and OS files
+.DS_Store
+.vscode/
+.idea/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
