@@ -1,8 +1,7 @@
 name: GUI cross-platform
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   build-test-package:
