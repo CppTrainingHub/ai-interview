@@ -1,23 +1,114 @@
-# Build artifacts
+# Build
 build/
 cmake-build-*/
-CMakeFiles/
+out/
+
+# CMake
 CMakeCache.txt
-Makefile
+CMakeFiles/
 compile_commands.json
 
-# Local configuration and secrets
-config/local_config.json
-*.local.json
+# VS Code
+.vscode/
+
+# Dev container local files
+.devcontainer/.cache/
+
+# Environment / secrets
 .env
 .env.*
+*.local.env
+config/app.local.env
+config/local.json
 
-# IDE and OS files
+# Generated reports
+reports/
+*.log
+
+# Audio / temp files
+*.wav
+*.mp3
+*.pcm
+*.tmp
+
+# OS
 .DS_Store
-.vscode/
-.idea/
+Thumbs.db
 
-# Python caches
-__pycache__/
-*.py[cod]
+oldAiInterview/
 
+# Local generated and code-analysis data
+/tmp/
+/.codegraph/
+
+# Project-local instructions
+AGENTS.md
+
+CMakeUserPresets.json
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+
+build/
+vcpkg_installed/
+CMakeUserPresets.json
+.env
+*.log
+*_interview_report.json
+
+tests/fixtures
+docs/*
+!docs/gui-cross-platform.md
+!docs/gui-change-summary.md
+!docs/project-introduction.md
+!docs/optimized-project-highlights.md
+!docs/core-interview-module.md
+!docs/report-builder-module.md
+!docs/json-report-writer-module.md
+!docs/training-plan.md
+
+# Images are generated/local documentation assets and must not be committed.
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.bmp
+*.tif
+*.tiff
+*.ico
+*.svg
+*.avif
+*.heic
+!docs/assets/
+!docs/assets/ai-interview-implementation-workflow.png
+!docs/assets/ai-interview-layered-architecture.png
+
+# Local CPack staging and generated installers are delivery artifacts, not source.
+_CPack_Packages/
+AIInterview-*.tar.gz
+AIInterview-*.deb
+AIInterview-*.dmg
+AIInterview-*.zip
+AIInterview-*.exe
+
+# Source repository: exclude local documents and generated files
+/docs/
+/build/
+/oldAiInterview/
+/oldAiinterview/
+/tmp/
+/reports/
+/vcpkg_installed/
+/_CPack_Packages/
+/.codegraph/
+/CMakeUserPresets.json
+/AIInterview-*.tar.gz
+/AIInterview-*.deb
+/AIInterview-*.dmg
+/AIInterview-*.zip
+/AIInterview-*.exe

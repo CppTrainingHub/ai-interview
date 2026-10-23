@@ -1,0 +1,11 @@
+add_subdirectory(core)
+add_subdirectory(report)
+add_subdirectory(llm)
+add_subdirectory(pdf)
+add_subdirectory(audio)
+add_subdirectory(runtime)
+add_subdirectory(net)
+
+if(AI_INTERVIEW_BUILD_GUI)
+    add_subdirectory(gui)
+endif()

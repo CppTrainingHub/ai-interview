@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=AI Interview
+Comment=C++ AI interview training system
+Exec=ai_interview_gui
+Terminal=false
+Categories=Education;Development;
