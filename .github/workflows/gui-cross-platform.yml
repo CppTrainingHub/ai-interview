@@ -1,0 +1,83 @@
+name: GUI cross-platform
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-test-package:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            triplet: x64-linux
+            bootstrap: ./vcpkg/bootstrap-vcpkg.sh
+          - os: macos-14
+            triplet: arm64-osx
+            bootstrap: ./vcpkg/bootstrap-vcpkg.sh
+          - os: windows-2022
+            triplet: x64-windows
+            bootstrap: .\vcpkg\bootstrap-vcpkg.bat
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout vcpkg
+        uses: actions/checkout@v4
+        with:
+          repository: microsoft/vcpkg
+          path: vcpkg
+
+      - name: Install Linux GUI runtime dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ninja-build xvfb libgl1-mesa-dev libglu1-mesa-dev libegl1-mesa-dev \
+            libxkbcommon-dev libxkbcommon-x11-dev libx11-xcb-dev libxcb-cursor-dev \
+            libxcb-keysyms1-dev libxcb-image0-dev libxcb-render-util0-dev \
+            libxcb-icccm4-dev libxcb-xinerama0-dev libxcb-xkb-dev \
+            libfontconfig1-dev libdbus-1-dev libsm-dev libice-dev libpulse-dev
+
+      - name: Install Ninja on macOS
+        if: runner.os == 'macOS'
+        run: brew install ninja
+
+      - name: Bootstrap vcpkg
+        run: ${{ matrix.bootstrap }}
+
+      - name: Configure
+        shell: bash
+        run: |
+          cmake -S . -B build/gui -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_TOOLCHAIN_FILE="$PWD/vcpkg/scripts/buildsystems/vcpkg.cmake" \
+            -DVCPKG_TARGET_TRIPLET=${{ matrix.triplet }} \
+            -DAI_INTERVIEW_BUILD_GUI=ON \
+            -DAI_INTERVIEW_BUILD_TESTS=ON \
+            -DAI_INTERVIEW_ENABLE_PORTAUDIO=ON \
+            -DAI_INTERVIEW_ENABLE_VOLCENGINE_REALTIME=ON
+
+      - name: Build
+        run: cmake --build build/gui --config Release --parallel
+
+      - name: Test
+        shell: bash
+        run: ctest --test-dir build/gui --output-on-failure
+
+      - name: Package
+        run: cpack --config build/gui/CPackConfig.cmake -C Release
+
+      - name: Upload packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-interview-${{ matrix.triplet }}
+          path: |
+            AIInterview-*.zip
+            AIInterview-*.exe
+            AIInterview-*.dmg
+            AIInterview-*.tar.gz
+            AIInterview-*.deb
+          if-no-files-found: error
